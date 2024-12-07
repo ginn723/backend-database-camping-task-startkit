@@ -1,12 +1,12 @@
 {
   "defaultEnv": "pg",
-  "sql-file" : true,
+  "sql-file": true,
   "pg": {
-    "host": {"ENV": "DB_HOST"},
+    "host": { "ENV": "DB_HOST" },
     "port": 5432,
-    "user": {"ENV": "DB_USERNAME"},
-    "password" : {"ENV": "DB_PASSWORD"},
-    "database": {"ENV": "DB_DATABASE"},
+    "user": { "ENV": "DB_USERNAME" },
+    "password": { "ENV": "DB_PASSWORD" },
+    "database": { "ENV": "DB_DATABASE" },
     "driver": "pg",
     "multipleStatements": true
   }

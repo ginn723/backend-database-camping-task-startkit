@@ -3,7 +3,7 @@ on:
   push:
 
 jobs:
-  test-migrate :
+  test-migrate:
     name: Run Migrate Test
     runs-on: ubuntu-latest
     env:
@@ -15,38 +15,35 @@ jobs:
       postgres:
         image: postgres:16.4-alpine3.20
         ports:
-          - 5432:5432
+          - 5432:5435
         env:
           POSTGRES_USER: ${{ env.DB_USERNAME }}
           POSTGRES_PASSWORD: ${{ env.DB_PASSWORD }}
           POSTGRES_DB: ${{ env.DB_DATABASE }}
     steps:
-    - name: Checkout to Repo Directory
-      uses: actions/checkout@v4
-    - name: Use Node.js 22
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22'
-        cache: 'npm'
-    - name: Restore cache node modules
-      id: cache
-      uses: actions/cache/restore@v4
-      with:
-        path: ./node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-    - name: Install dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: npm ci --production
-    - name: update cache node modules
-      if: steps.cache.outputs.cache-hit != 'true'
-      uses: actions/cache/save@v4
-      with:
-        path: ./node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-    - name: test migrate
-      run: npm run init && npm run migrate
-        
-        
-        
+      - name: Checkout to Repo Directory
+        uses: actions/checkout@v4
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - name: Restore cache node modules
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci --production
+      - name: update cache node modules
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+      - name: test migrate
+        run: npm run init && npm run migrate
