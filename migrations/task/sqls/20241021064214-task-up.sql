@@ -287,7 +287,8 @@ WHERE
     "start_at",
     "end_at",
     "max_participants",
-    "meeting_url"
+    "meeting_url",
+    "created_at" 
   )
 SELECT
   "id",
@@ -303,7 +304,8 @@ SELECT
   '2024-11-25 14:00:00',
   '2024-11-25 16:00:00',
   10,
-  'https://test-meeting.test.io'
+  'https://test-meeting.test.io',
+  CURRENT_TIMESTAMP
 FROM
   "USER"
 WHERE
